@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process currentId="94" name="textMsgToJMS" persistenceEnabled="true" selectedActivityId="2" serialize="false" targetNamespace="http://www.approuter.com/schemas/2004/01/maestro/process/" xmlns="http://www.approuter.com/schemas/2004/01/maestro/process/" xmlns:bpel-ext="http://www.approuter.com/schemas/2003/1/bpel-ext/" xmlns:bpws="http://www.approuter.com/schemas/2004/01/maestro/process/" xmlns:fn="http://www.w3.org/2002/11/xquery-functions" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"><schemas><schemaDescription activityId="" counter-for-extra-xml-schema="0" schemaId="textMsg"><![CDATA[<xsd:schema targetNamespace="http://www.approuter.com/schemas/2003/1/castirontypes" xmlns:tns="http://www.approuter.com/schemas/2003/1/castirontypes" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema"> <xsd:element name="textMsg" type="xsd:string"/> </xsd:schema>]]></schemaDescription><schemaDescription activityId="" counter-for-extra-xml-schema="0" schemaId="faultName"><![CDATA[<xsd:schema targetNamespace="http://www.approuter.com/schemas/2003/1/castirontypes" xmlns:tns="http://www.approuter.com/schemas/2003/1/castirontypes" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema"> <xsd:element name="faultName" type="xsd:QName"/> </xsd:schema>]]></schemaDescription><schemaDescription activityId="6" counter-for-extra-xml-schema="0" schemaId="JmsMessage.xsd-6"><![CDATA[<?xml version="1.0" encoding="UTF-8"?><xsd:schema targetNamespace="http://www.approuter.com/schemas/2004/1/module/jms/message"    xmlns:ihjmsmsg="http://www.approuter.com/schemas/2004/1/module/jms/message"    xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified">    <xsd:complexType name="NVPair">        <xsd:sequence>            <xsd:element name="name" type="xsd:string"></xsd:element>            <xsd:element name="value" type="xsd:string"></xsd:element>        </xsd:sequence>    </xsd:complexType>    <xsd:complexType name="JmsProperties">        <xsd:sequence>            <xsd:element name="JMSXUserID" type="xsd:string" minOccurs="0" maxOccurs="1"></xsd:element>            <xsd:element name="JMSXAppID" type="xsd:string" minOccurs="0" maxOccurs="1"></xsd:element>            <xsd:element name="JMSXDeliveryCount" type="xsd:int" minOccurs="0" maxOccurs="1"></xsd:element>            <xsd:element name="JMSXGroupID" type="xsd:string" minOccurs="0" maxOccurs="1"></xsd:element>            <xsd:element name="JMSXGroupSeq" type="xsd:string" minOccurs="0" maxOccurs="1"></xsd:element>            <xsd:element name="JMSXRcvTimestamp" type="xsd:long" minOccurs="0" maxOccurs="1"></xsd:element>            <xsd:element name ="MessageProperties" type="ihjmsmsg:NVPair" minOccurs="0" maxOccurs="unbounded"></xsd:element>        </xsd:sequence>    </xsd:complexType>        <xsd:simpleType name="JmsDeliveryModeType">        <xsd:restriction base="xsd:int">            <!--- Means the Presistent  jms message delivery mode -->            <xsd:enumeration value="1"></xsd:enumeration>            <!--- Means the NON_Presistent  jms message delivery mode -->            <xsd:enumeration value="2"></xsd:enumeration>        </xsd:restriction>    </xsd:simpleType>    <xsd:complexType name="JmsHeader">        <xsd:sequence>            <xsd:element name="JMSDestination" type="xsd:string" minOccurs="0" maxOccurs="1"></xsd:element>            <xsd:element name="JMSDeliveryMode" type="ihjmsmsg:JmsDeliveryModeType" minOccurs="0" maxOccurs="1"></xsd:element>            <xsd:element name="JMSExpiriation" type="xsd:long" minOccurs="0" maxOccurs="1"></xsd:element>            <xsd:element name="JMSPriority" type="xsd:int" minOccurs="0" maxOccurs="1"></xsd:element>            <xsd:element name="JMSMessageID" type="xsd:string" minOccurs="0" maxOccurs="1"></xsd:element>            <xsd:element name="JMSTimeStamp" type="xsd:long" minOccurs="0" maxOccurs="1"></xsd:element>            <xsd:element name="JMSCorrelationID" type="xsd:string" minOccurs="0" maxOccurs="1"></xsd:element>            <xsd:element name="JMSReplyTo" type="xsd:string" minOccurs="0" maxOccurs="1"></xsd:element>            <xsd:element name="JMSType" type="xsd:string" minOccurs="0" maxOccurs="1"></xsd:element>            <xsd:element name="JMSRedelivered" type="xsd:boolean" minOccurs="0" maxOccurs="1"></xsd:element>        </xsd:sequence>    </xsd:complexType>        <xsd:complexType name="JmsMessage">        <xsd:sequence>            <xsd:element name="headers" type="ihjmsmsg:JmsHeader" minOccurs="0" maxOccurs="1"></xsd:element>            <xsd:element name="properties" type="ihjmsmsg:JmsProperties" minOccurs="0" maxOccurs="1"></xsd:element>            <xsd:element name="body" type="xsd:string"></xsd:element>         </xsd:sequence>    </xsd:complexType>    <xsd:complexType name="JmsMessages">        <xsd:sequence>            <xsd:element name="message"  type="ihjmsmsg:JmsMessage" maxOccurs="unbounded"></xsd:element>            <xsd:element name="destination" type="xsd:string" minOccurs="0" maxOccurs="1"></xsd:element>        </xsd:sequence>    </xsd:complexType>    <xsd:element name="messages" type="ihjmsmsg:JmsMessages" ></xsd:element></xsd:schema>]]></schemaDescription><schemaDescription activityId="" counter-for-extra-xml-schema="0" schemaId="faultData"><![CDATA[<xsd:schema targetNamespace="http://www.approuter.com/schemas/2003/1/castirontypes" xmlns:tns="http://www.approuter.com/schemas/2003/1/castirontypes" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema"> <xsd:element name="faultData" type="xsd:anyType"/> </xsd:schema>]]></schemaDescription><schemaDescription activityId="5" counter-for-extra-xml-schema="0" schemaId="JmsMessage.xsd-5"><![CDATA[<?xml version="1.0" encoding="UTF-8"?><xsd:schema targetNamespace="http://www.approuter.com/schemas/2004/1/module/jms/message"    xmlns:ihjmsmsg="http://www.approuter.com/schemas/2004/1/module/jms/message"    xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified">    <xsd:complexType name="NVPair">        <xsd:sequence>            <xsd:element name="name" type="xsd:string"></xsd:element>            <xsd:element name="value" type="xsd:string"></xsd:element>        </xsd:sequence>    </xsd:complexType>    <xsd:complexType name="JmsProperties">        <xsd:sequence>            <xsd:element name="JMSXUserID" type="xsd:string" minOccurs="0" maxOccurs="1"></xsd:element>            <xsd:element name="JMSXAppID" type="xsd:string" minOccurs="0" maxOccurs="1"></xsd:element>            <xsd:element name="JMSXDeliveryCount" type="xsd:int" minOccurs="0" maxOccurs="1"></xsd:element>            <xsd:element name="JMSXGroupID" type="xsd:string" minOccurs="0" maxOccurs="1"></xsd:element>            <xsd:element name="JMSXGroupSeq" type="xsd:string" minOccurs="0" maxOccurs="1"></xsd:element>            <xsd:element name="JMSXRcvTimestamp" type="xsd:long" minOccurs="0" maxOccurs="1"></xsd:element>            <xsd:element name ="MessageProperties" type="ihjmsmsg:NVPair" minOccurs="0" maxOccurs="unbounded"></xsd:element>        </xsd:sequence>    </xsd:complexType>        <xsd:simpleType name="JmsDeliveryModeType">        <xsd:restriction base="xsd:int">            <!--- Means the Presistent  jms message delivery mode -->            <xsd:enumeration value="1"></xsd:enumeration>            <!--- Means the NON_Presistent  jms message delivery mode -->            <xsd:enumeration value="2"></xsd:enumeration>        </xsd:restriction>    </xsd:simpleType>    <xsd:complexType name="JmsHeader">        <xsd:sequence>            <xsd:element name="JMSDestination" type="xsd:string" minOccurs="0" maxOccurs="1"></xsd:element>            <xsd:element name="JMSDeliveryMode" type="ihjmsmsg:JmsDeliveryModeType" minOccurs="0" maxOccurs="1"></xsd:element>            <xsd:element name="JMSExpiriation" type="xsd:long" minOccurs="0" maxOccurs="1"></xsd:element>            <xsd:element name="JMSPriority" type="xsd:int" minOccurs="0" maxOccurs="1"></xsd:element>            <xsd:element name="JMSMessageID" type="xsd:string" minOccurs="0" maxOccurs="1"></xsd:element>            <xsd:element name="JMSTimeStamp" type="xsd:long" minOccurs="0" maxOccurs="1"></xsd:element>            <xsd:element name="JMSCorrelationID" type="xsd:string" minOccurs="0" maxOccurs="1"></xsd:element>            <xsd:element name="JMSReplyTo" type="xsd:string" minOccurs="0" maxOccurs="1"></xsd:element>            <xsd:element name="JMSType" type="xsd:string" minOccurs="0" maxOccurs="1"></xsd:element>            <xsd:element name="JMSRedelivered" type="xsd:boolean" minOccurs="0" maxOccurs="1"></xsd:element>        </xsd:sequence>    </xsd:complexType>        <xsd:complexType name="JmsMessage">        <xsd:sequence>            <xsd:element name="headers" type="ihjmsmsg:JmsHeader" minOccurs="0" maxOccurs="1"></xsd:element>            <xsd:element name="properties" type="ihjmsmsg:JmsProperties" minOccurs="0" maxOccurs="1"></xsd:element>            <xsd:element name="body" type="xsd:string"></xsd:element>         </xsd:sequence>    </xsd:complexType>    <xsd:complexType name="JmsMessages">        <xsd:sequence>            <xsd:element name="message"  type="ihjmsmsg:JmsMessage" maxOccurs="1"></xsd:element>            <xsd:element name="destination" type="xsd:string" minOccurs="0" maxOccurs="1"></xsd:element>        </xsd:sequence>    </xsd:complexType>    <xsd:element name="messages" type="ihjmsmsg:JmsMessages" ></xsd:element></xsd:schema>]]></schemaDescription><schemaDescription activityId="4" counter-for-extra-xml-schema="0" schemaId="http-receive-output-parameter-header.xsd-4"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+
+    elementFormDefault="qualified">
+
+    <xsd:complexType name="HeaderItemType">
+        <xsd:sequence>
+            <xsd:element name="name" type="xsd:string"/>
+            <xsd:element name="value" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Headers">
+        <xsd:sequence>
+            <xsd:element name="headerItem" type="HeaderItemType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="PathParameter">
+        <xsd:sequence>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="QueryParameter">
+        <xsd:sequence>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:complexType name="HttpHeaderType">
+        <xsd:sequence>
+            <xsd:element name="uri" type="xsd:string"/>
+            <xsd:element name="host" type="xsd:string"/>            
+            <xsd:element name="method" type="xsd:string"/>
+            <!-- start configurable headers -->
+            <!-- end configurable headers -->
+            <xsd:element name="otherHeaders" type="Headers" minOccurs="0" maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    
+    <xsd:element name="httpheaders" type="HttpHeaderType"/>
+</xsd:schema>]]></schemaDescription><schemaDescription activityId="2" counter-for-extra-xml-schema="0" schemaId="orchestration_internal_variableJobInfo"><![CDATA[<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:tns="http://www.approuter.com/schemas/2005/1/orchestration/jobinfo"
+            targetNamespace="http://www.approuter.com/schemas/2005/1/orchestration/jobinfo" elementFormDefault="qualified">
+    <xsd:element name="JobInfo" type="tns:JobInfoType"/>
+    <xsd:complexType name="JobInfoType">
+        <xsd:sequence>
+           <xsd:element name="jobId" type="xsd:string"/>
+           <xsd:element name="jobStartTime" type="xsd:dateTime"/>
+           <xsd:element name="projectName" type="xsd:string"/>
+           <xsd:element name="configurationName" type="xsd:string"/>
+           <xsd:element name="orchestrationName" type="xsd:string"/>
+           <xsd:element name="routerHostName" type="xsd:string"/>
+        </xsd:sequence>
+     </xsd:complexType>
+</xsd:schema>]]></schemaDescription><schemaDescription activityId="4" counter-for-extra-xml-schema="0" schemaId="http-receive-output-parameter-body-string.xsd-4"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema
+    targetNamespace="http://www.approuter.com/schemas/2003/1/castirontypes"
+    xmlns:tns="http://www.approuter.com/schemas/2003/1/castirontypes"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="qualified">
+    <xsd:element name="body" type="xsd:string"/>
+</xsd:schema>
+]]></schemaDescription><schemaDescription activityId="4" counter-for-extra-xml-schema="0" schemaId="FaultInfo.xsd-4"><![CDATA[<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:tns="http://www.approuter.com/schemas/2006/1/orchestration/faultinfo"
+            targetNamespace="http://www.approuter.com/schemas/2006/1/orchestration/faultinfo" elementFormDefault="qualified">
+    <xsd:element name="FaultInfo" type="tns:FaultInfoType"/>
+    <xsd:complexType name="FaultInfoType">
+        <xsd:sequence>
+           <xsd:element name="name" type="xsd:QName"/>
+           <xsd:element name="message" type="xsd:string"/>
+           <xsd:element name="activityId" type="xsd:int"/>
+           <xsd:element name="activityName" type="xsd:string"/>
+           <xsd:element name="faultTime" type="xsd:dateTime"/>
+        </xsd:sequence>
+     </xsd:complexType>
+</xsd:schema>
+]]></schemaDescription></schemas><dependecies><dependency id="4" projectNodeGuid="appnet-guid://1081DE426C095B0EEF0645ADBE07FBC4" type="activity"/><dependency id="5" projectNodeGuid="appnet-guid://7819BF9DD81C179FA259F1075351E001" type="activity"/></dependecies><variables selectedVariableName="faultInfo"><variable assignable="false" bpel-ext:location="orchestration_internal_variableJobInfo" bpel-ext:locationType="2" bpel-ext:originalRootNode="" bpel-ext:rootNode="JobInfo" bpel-ext:rootNodeNS="http://www.approuter.com/schemas/2005/1/orchestration/jobinfo" canBeSubstitutedFromUI="true" internal="true" name="JobInfo" readOnly="true" typeEditable="false"><description>&lt;html&gt;&lt;body style="background-color:#F4F2E6;margin:0px;padding:5px;font: 8px/14px verdana,tahoma;"&gt;The orchestration creates this variable for every job. You can neither rename it nor delete it.&lt;/body&gt;&lt;/html&gt;.</description></variable><variable assignable="true" bpel-ext:location="textMsg" bpel-ext:locationType="2" bpel-ext:originalRootNode="textMsg" bpel-ext:rootNode="textMsg" canBeSubstitutedFromUI="true" internal="false" isPrimitiveType="true" name="textMsg" primitiveType="string" readOnly="false" typeEditable="true"><description>Variable Description</description></variable><variable assignable="true" bpel-ext:activityId="6" bpel-ext:location="JmsMessage.xsd-6" bpel-ext:locationType="2" bpel-ext:originalRootNode="messages" bpel-ext:originalRootNodeNS="http://www.approuter.com/schemas/2004/1/module/jms/message" bpel-ext:rootNode="messages" bpel-ext:rootNodeNS="http://www.approuter.com/schemas/2004/1/module/jms/message" canBeSubstitutedFromUI="true" internal="false" messageType="messages" name="messages" readOnly="false" typeEditable="true"><description>Variable Description</description></variable><variable assignable="false" bpel-ext:location="faultName" bpel-ext:locationType="2" bpel-ext:originalRootNode="faultName" bpel-ext:rootNode="faultName" canBeSubstitutedFromUI="true" canSetDefaultValueProperty="false" canSetSharedProperty="false" internal="false" isPrimitiveType="true" name="faultName" primitiveType="QName" readOnly="false" scopeActivityId="3" typeEditable="false"><description>Variable Description</description></variable><variable assignable="false" bpel-ext:location="faultData" bpel-ext:locationType="2" bpel-ext:originalRootNode="faultData" bpel-ext:rootNode="faultData" canBeSubstitutedFromUI="true" canSetDefaultValueProperty="false" canSetSharedProperty="false" internal="false" isPrimitiveType="true" name="faultData" primitiveType="anyType" readOnly="false" scopeActivityId="3" typeEditable="false"><description>Variable Description</description></variable><variable assignable="false" bpel-ext:location="FaultInfo.xsd-4" bpel-ext:locationType="2" bpel-ext:originalRootNode="FaultInfo" bpel-ext:originalRootNodeNS="http://www.approuter.com/schemas/2006/1/orchestration/faultinfo" bpel-ext:rootNode="FaultInfo" bpel-ext:rootNodeNS="http://www.approuter.com/schemas/2006/1/orchestration/faultinfo" canBeSubstitutedFromUI="true" canSetDefaultValueProperty="false" canSetSharedProperty="false" internal="false" name="faultInfo" readOnly="false" scopeActivityId="3" typeEditable="false"><description>Variable Description</description></variable></variables><comments><comment activityId="13">In case of a connection failure or any other potential exceptions associated with sending a message to the JMS queue, the CatchAll branch will execute. You may then incorporate exception handling here, such as sending an e-mail notification, or invoking an error handling webservice.</comment></comments><sequence activityId="2" comments="" configurationId="flow_sequence_id_1" description="Start Activity" expanded="true" name="Start"><start activityId="4" activityName="" comments="" configurationId="http_receiverequest_id" description="This activity listens for a request on the selected HTTP endpoint" expanded="true" moduleName="http://www.approuter.com/module/http/" name="Receive Text Message" partnerLink=""><outputMapSpecConfig><mapSpec context="orchestration" optionalParameterVisible="false" version="1.0" xmlns="http://www.approuter.com/schemas/2003/1/transformation/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><specInfo><source activityId="4" canBeSubstitutedFromUI="true" displayName="httpheaders" isParameter="true" location="http-receive-output-parameter-header.xsd-4" locationType="2" logicalName="srcDoc1" messageType="httpheaders" optionalParameter="false" originalRootNodeName="httpheaders" rootNodeName="httpheaders" varName="httpheaders"/><source activityId="4" canBeSubstitutedFromUI="true" displayName="body" isParameter="true" location="http-receive-output-parameter-body-string.xsd-4" locationType="2" logicalName="srcDoc2" messageType="body" namespace="http://www.approuter.com/schemas/2003/1/castirontypes" optionalParameter="false" originalRootNodeName="body" originalRootNodeNameNS="http://www.approuter.com/schemas/2003/1/castirontypes" rootNodeName="body"/><destination canBeSubstitutedFromUI="true" displayName="textMsg" isParameter="false" location="textMsg" locationType="2" logicalName="dstDoc1" namespace="http://www.approuter.com/schemas/2003/1/castirontypes" optionalParameter="false" originalRootNodeName="textMsg" rootNodeName="textMsg" varName="textMsg"/></specInfo><doMapping><rule emitCData="false" guaranteed="true"><do guaranteed="true"><from docName="srcDoc2" path="/body"/><to docName="dstDoc1" path="/textMsg"/></do></rule></doMapping></mapSpec></outputMapSpecConfig><tasksConfig><com.approuter.studio.connectors.task.TaskList><![CDATA[
+  ]]><tasks><![CDATA[
+    ]]><com.approuter.studio.connectors.task.SummaryTask><![CDATA[
+      ]]><key><![CDATA[summaryTask]]></key><![CDATA[
+      ]]><children/><![CDATA[
+      ]]><model><![CDATA[
+        ]]><map><![CDATA[
+          ]]><entry><![CDATA[
+            ]]><string><![CDATA[selected]]></string><![CDATA[
+            ]]><string><![CDATA[false]]></string><![CDATA[
+          ]]></entry><![CDATA[
+        ]]></map><![CDATA[
+      ]]></model><![CDATA[
+      ]]><listeners/><![CDATA[
+    ]]></com.approuter.studio.connectors.task.SummaryTask><![CDATA[
+    ]]><com.approuter.studio.connectors.http.tasks.HTTPEndpointTask><![CDATA[
+      ]]><key><![CDATA[endpointTask]]></key><![CDATA[
+      ]]><children/><![CDATA[
+      ]]><model><![CDATA[
+        ]]><map><![CDATA[
+          ]]><entry><![CDATA[
+            ]]><string><![CDATA[selected]]></string><![CDATA[
+            ]]><string><![CDATA[false]]></string><![CDATA[
+          ]]></entry><![CDATA[
+          ]]><entry><![CDATA[
+            ]]><string><![CDATA[endpoint]]></string><![CDATA[
+            ]]><string><![CDATA[appnet-guid://1081DE426C095B0EEF0645ADBE07FBC4]]></string><![CDATA[
+          ]]></entry><![CDATA[
+        ]]></map><![CDATA[
+      ]]></model><![CDATA[
+      ]]><listeners><![CDATA[
+        ]]><com.approuter.studio.connectors.http.tasks.HTTPRecieveRequstTask><![CDATA[
+          ]]><key><![CDATA[setupWorkflowTask]]></key><![CDATA[
+          ]]><children><![CDATA[
+            ]]><com.approuter.studio.connectors.task.ActivityRefTask><![CDATA[
+              ]]><key><![CDATA[requestHeadersTask]]></key><![CDATA[
+              ]]><children/><![CDATA[
+              ]]><model><![CDATA[
+                ]]><map><![CDATA[
+                  ]]><entry><![CDATA[
+                    ]]><string><![CDATA[selected]]></string><![CDATA[
+                    ]]><string><![CDATA[false]]></string><![CDATA[
+                  ]]></entry><![CDATA[
+                ]]></map><![CDATA[
+              ]]></model><![CDATA[
+              ]]><listeners/><![CDATA[
+            ]]></com.approuter.studio.connectors.task.ActivityRefTask><![CDATA[
+          ]]></children><![CDATA[
+          ]]><model><![CDATA[
+            ]]><map><![CDATA[
+              ]]><entry><![CDATA[
+                ]]><string><![CDATA[http_receive_requiresreply]]></string><![CDATA[
+                ]]><boolean><![CDATA[false]]></boolean><![CDATA[
+              ]]></entry><![CDATA[
+              ]]><entry><![CDATA[
+                ]]><string><![CDATA[selected]]></string><![CDATA[
+                ]]><string><![CDATA[false]]></string><![CDATA[
+              ]]></entry><![CDATA[
+              ]]><entry><![CDATA[
+                ]]><string><![CDATA[http_need_reply]]></string><![CDATA[
+                ]]><boolean><![CDATA[false]]></boolean><![CDATA[
+              ]]></entry><![CDATA[
+              ]]><entry><![CDATA[
+                ]]><string><![CDATA[http_compresion]]></string><![CDATA[
+                ]]><boolean><![CDATA[false]]></boolean><![CDATA[
+              ]]></entry><![CDATA[
+              ]]><entry><![CDATA[
+                ]]><string><![CDATA[http_receive_path]]></string><![CDATA[
+                ]]><string/><![CDATA[
+              ]]></entry><![CDATA[
+              ]]><entry><![CDATA[
+                ]]><string><![CDATA[http_receive_binary]]></string><![CDATA[
+                ]]><boolean><![CDATA[false]]></boolean><![CDATA[
+              ]]></entry><![CDATA[
+              ]]><entry><![CDATA[
+                ]]><string><![CDATA[http_receive_extrapath]]></string><![CDATA[
+                ]]><com.approuter.studio.configprops.ConfigurationProperty><![CDATA[
+                  ]]><name><![CDATA[textMsgToJMS.URL]]></name><![CDATA[
+                  ]]><value><![CDATA[textMsgToJMS]]></value><![CDATA[
+                  ]]><type><![CDATA[String]]></type><![CDATA[
+                  ]]><hidden><![CDATA[false]]></hidden><![CDATA[
+                  ]]><internal><![CDATA[false]]></internal><![CDATA[
+                  ]]><count><![CDATA[0]]></count><![CDATA[
+                  ]]><ALLOW_NULL_PASSWORD_VALUES><![CDATA[true]]></ALLOW_NULL_PASSWORD_VALUES><![CDATA[
+                ]]></com.approuter.studio.configprops.ConfigurationProperty><![CDATA[
+              ]]></entry><![CDATA[
+            ]]></map><![CDATA[
+          ]]></model><![CDATA[
+          ]]><listeners><![CDATA[
+            ]]><com.approuter.studio.connectors.task.MapTask><![CDATA[
+              ]]><key><![CDATA[mapOutputsTask]]></key><![CDATA[
+              ]]><children/><![CDATA[
+              ]]><model><![CDATA[
+                ]]><map><![CDATA[
+                  ]]><entry><![CDATA[
+                    ]]><string><![CDATA[selected]]></string><![CDATA[
+                    ]]><string><![CDATA[true]]></string><![CDATA[
+                  ]]></entry><![CDATA[
+                ]]></map><![CDATA[
+              ]]></model><![CDATA[
+              ]]><listeners/><![CDATA[
+            ]]></com.approuter.studio.connectors.task.MapTask><![CDATA[
+          ]]></listeners><![CDATA[
+        ]]></com.approuter.studio.connectors.http.tasks.HTTPRecieveRequstTask><![CDATA[
+      ]]></listeners><![CDATA[
+    ]]></com.approuter.studio.connectors.http.tasks.HTTPEndpointTask><![CDATA[
+    ]]><com.approuter.studio.connectors.http.tasks.HTTPRecieveRequstTask reference="../com.approuter.studio.connectors.http.tasks.HTTPEndpointTask/listeners/com.approuter.studio.connectors.http.tasks.HTTPRecieveRequstTask"/><![CDATA[
+    ]]><com.approuter.studio.connectors.task.MapTask reference="../com.approuter.studio.connectors.http.tasks.HTTPEndpointTask/listeners/com.approuter.studio.connectors.http.tasks.HTTPRecieveRequstTask/listeners/com.approuter.studio.connectors.task.MapTask"/><![CDATA[
+  ]]></tasks><![CDATA[
+  ]]><valid><![CDATA[false]]></valid><![CDATA[
+]]></com.approuter.studio.connectors.task.TaskList></tasksConfig></start><scope activityId="3" comments="" configurationId="flow_scope_id_1" description="Try" expanded="true" name="Try"><startScope activityId="95" name="scope"><invoke activityId="5" activityName="" comments="" configurationId="jms_send_message_id" description="This activity sends a Message to the specified Message Queue on the selected JMS endpoint" expanded="true" moduleName="http://www.approuter.com/module/jms/" name="Send TextMsg" partnerLink=""><inputMapSpecConfig><mapSpec context="orchestration" optionalParameterVisible="false" version="1.0" xmlns="http://www.approuter.com/schemas/2003/1/transformation/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><specInfo><source canBeSubstitutedFromUI="true" displayName="textMsg" isParameter="false" location="textMsg" locationType="2" logicalName="srcDoc1" namespace="http://www.approuter.com/schemas/2003/1/castirontypes" optionalParameter="false" originalRootNodeName="textMsg" rootNodeName="textMsg" varName="textMsg"/><destination activityId="5" canBeSubstitutedFromUI="true" displayName="messages" isParameter="true" location="JmsMessage.xsd-5" locationType="2" logicalName="dstDoc1" messageType="messages" namespace="http://www.approuter.com/schemas/2004/1/module/jms/message" optionalParameter="false" originalRootNodeName="messages" originalRootNodeNameNS="http://www.approuter.com/schemas/2004/1/module/jms/message" rootNodeName="messages" varName="messages"/></specInfo><doMapping><rule emitCData="false" guaranteed="true"><do guaranteed="true"><from docName="srcDoc1" path="/textMsg"/><to docName="dstDoc1" path="/messages/message/body"/></do></rule></doMapping></mapSpec></inputMapSpecConfig><model><ihjms:jmsProducer connectionTimeout="300" consumeBatches="false" deliveryMode="ATLEAST_ONCE" endpoint="/Endpoints/JMS" endpointUrl="project-url://Endpoints/JMS" maxRetries="5" retryInterval="30" xmlns:ihjms="http://www.approuter.com/schemas/2004/1/module/jms/producer" xmlns:xs="http://www.w3.org/2001/XMLSchema"><ihjms:destinationName>{property:/JMS.SendQueue}</ihjms:destinationName><ihjms:payload>text</ihjms:payload><ihjms:replyQueue></ihjms:replyQueue><ihjms:timeToLive>0</ihjms:timeToLive><ihjms:priority>4</ihjms:priority></ihjms:jmsProducer></model></invoke></startScope><catchAll activityId="13" comments="In case of a connection failure or any other potential exceptions associated with sending a message to the JMS queue, the CatchAll branch will execute. You may then incorporate exception handling here, such as sending an e-mail notification, or invoking an error handling webservice." configurationId="flow_catchAll_id_1" description="Catch All Activity" expanded="true" faultInfo="faultInfo" faultName="faultName" faultVariable="faultData" name="Catch Any Exception"><sequence activityId="96" comments="" configurationId="flow_sequence_id_1" description="Start Activity" expanded="true" name="sequence"><empty activityId="6" comments="" configurationId="flow_empty_id_1" description="Empty Activity" expanded="true" name="Empty"/></sequence></catchAll></scope></sequence></process>
